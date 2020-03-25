@@ -1,0 +1,56 @@
+spring:
+  name: "sc-user"
+  profiles:
+    active: "preprod"
+
+  main:
+    banner-mode: "off"
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/sc_user_db
+    username: postgres
+    password: 1234
+    driverClassName: org.postgresql.Driver
+    initialization-mode: always
+
+server:
+  port: 8081
+
+lombok:
+  anyConstructor:
+    addConstructorProperties: true
+
+---
+
+spring:
+  profiles: dev
+
+keycloak:
+  realm: sc-project
+  auth-server-url: http://192.168.1.35:8099/auth/
+  resource: sc-user
+  public-client: false
+  bearer-only: true
+  cors: true
+
+---
+
+spring:
+  profiles: preprod
+
+keycloak:
+  realm: sc-project
+  auth-server-url: http://jeannory.dynamic-dns.net:8099/auth/
+  resource: sc-user
+  public-client: false
+  bearer-only: true
+  cors: true
+
+---
