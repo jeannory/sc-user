@@ -1,4 +1,4 @@
-package software.craftsmanship.scuser.configuration;
+package software.craftsmanship.scuser.security;
 
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.client.KeycloakClientRequestFactory;
