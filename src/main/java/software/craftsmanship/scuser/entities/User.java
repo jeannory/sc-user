@@ -13,14 +13,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sc_user",uniqueConstraints={@UniqueConstraint(columnNames = "email")})
-public class User {
+public class User extends SuperEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    private String username;
     private String email;
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String firstName;
@@ -28,6 +28,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user")
     private Space space;
 }

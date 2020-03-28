@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sc_space")
-public class Space {
+public class Space extends SuperEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

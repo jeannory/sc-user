@@ -4,6 +4,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import software.craftsmanship.scuser.entities.Space;
+import software.craftsmanship.scuser.entities.User;
+import software.craftsmanship.scuser.enums.Gender;
+import software.craftsmanship.scuser.enums.Status;
+import software.craftsmanship.scuser.repositories.SpaceRepository;
+import software.craftsmanship.scuser.repositories.UserRepository;
 
 @SpringBootApplication
 public class ScUserApplication {
@@ -13,8 +19,13 @@ public class ScUserApplication {
 	}
 
 	@Bean
-	CommandLineRunner start(){
+	CommandLineRunner start(final UserRepository userRepository, final SpaceRepository spaceRepository){
 		return arg -> {
+			final Space space = new Space();
+			space.setName("john.doe@gmail.com_space");
+			spaceRepository.save(space);
+			final User user = new User(null, "john.doe@gmail.com", "john.doe@gmail.com", Gender.Mister, "John", "Doe", Status.ACTIVE, space);
+			userRepository.save(user);
 				System.out.println("ScUserApplication start");
 		};
 

@@ -1,4 +1,4 @@
-package software.craftsmanship.scuser.configuration;
+package software.craftsmanship.scuser.security;
 
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
