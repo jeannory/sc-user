@@ -12,7 +12,10 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "sc_user",uniqueConstraints={@UniqueConstraint(columnNames = "email")})
+@Table(name = "sc_user",uniqueConstraints={
+        @UniqueConstraint(columnNames = "email"),
+        @UniqueConstraint(columnNames = "username")
+})
 public class User extends SuperEntity{
 
     @Id
@@ -28,7 +31,7 @@ public class User extends SuperEntity{
     @Enumerated(EnumType.STRING)
     private Status status;
 
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @OneToOne(mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "space_id")
     private Space space;
 }

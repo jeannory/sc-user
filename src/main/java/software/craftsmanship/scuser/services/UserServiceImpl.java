@@ -50,13 +50,14 @@ public class UserServiceImpl implements UserService {
             throw new CustomServiceException("error preferredUsername cannot be null or empty");
         }
         final String username = accessToken.getPreferredUsername();
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsernameIgnoreCase(username);
         if (user == null) {
             try {
                 user = testCreateUser(accessToken);
             } catch (CustomTransactionalException ex) {
                 return null;
             }
+            user.toString();
         }
         return user;
     }
@@ -72,17 +73,16 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.MANDATORY)
     private User validateCreateUser(final AccessToken accessToken) {
         try {
-            final Space space = new Space();
-            space.setName(accessToken.getPreferredUsername() + "_space");
+            final Space space = new Space(null, accessToken.getPreferredUsername() + "_space", null);
             spaceRepository.save(space);
-            User user = new User();
+            final User user = new User();
             user.setUsername(accessToken.getPreferredUsername());
             user.setEmail(accessToken.getEmail());
             user.setFirstName(accessToken.getGivenName());
             user.setLastName(accessToken.getFamilyName());
             user.setSpace(space);
             userRepository.save(user);
-            return user;
+            return userRepository.findByUsernameIgnoreCase(accessToken.getPreferredUsername());
         } catch (Exception ex) {
             throw new CustomTransactionalException("persistence failed : " + ex.getMessage());
         }
