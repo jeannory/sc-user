@@ -12,6 +12,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import software.craftsmanship.scuser.utils.BuilderUtilsKeycloak;
 import software.craftsmanship.scuser.utils.BuilderUtilsResultAction;
 ;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -32,6 +34,8 @@ public class UserControllerContextTest extends BuilderUtilsResultAction {
         final String accessToken = builderUtilsKeycloak.getAccessToken();
         final MvcResult mvcResult = invokeGet("/api/users/connected-user", accessToken)
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("email", is("test@gmail.com")))
+                .andExpect(jsonPath("space.name", is("test_space")))
                 .andReturn();
     }
 

@@ -1,4 +1,4 @@
-package software.craftsmanship.scuser.models;
+package software.craftsmanship.scuser.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

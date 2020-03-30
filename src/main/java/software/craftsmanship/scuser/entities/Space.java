@@ -1,13 +1,13 @@
 package software.craftsmanship.scuser.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+@EqualsAndHashCode(exclude="user", callSuper = false)
+@ToString(exclude="user")
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sc_space")
@@ -18,7 +18,7 @@ public class Space extends SuperEntity{
     private Long id;
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "space", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
+
 }

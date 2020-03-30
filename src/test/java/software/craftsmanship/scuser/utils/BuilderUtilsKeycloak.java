@@ -3,7 +3,6 @@ package software.craftsmanship.scuser.utils;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import software.craftsmanship.scuser.models.TokenStore;
 import software.craftsmanship.scuser.singleton.SingletonBean;
 
 import java.io.IOException;

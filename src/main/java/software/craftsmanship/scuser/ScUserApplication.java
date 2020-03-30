@@ -21,11 +21,11 @@ public class ScUserApplication {
 	@Bean
 	CommandLineRunner start(final UserRepository userRepository, final SpaceRepository spaceRepository){
 		return arg -> {
-			final Space space = new Space();
-			space.setName("john.doe@gmail.com_space");
+			final Space space = new Space(null, "john.doe@gmail.com_space", null);
 			spaceRepository.save(space);
 			final User user = new User(null, "john.doe@gmail.com", "john.doe@gmail.com", Gender.Mister, "John", "Doe", Status.ACTIVE, space);
 			userRepository.save(user);
+
 				System.out.println("ScUserApplication start");
 		};
 
