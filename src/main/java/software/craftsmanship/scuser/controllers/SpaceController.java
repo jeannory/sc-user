@@ -7,32 +7,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import software.craftsmanship.scuser.dtos.UserDto;
-import software.craftsmanship.scuser.services.UserService;
+import software.craftsmanship.scuser.dtos.SpaceDto;
+import software.craftsmanship.scuser.services.SpaceService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/users")
-public class UserController {
+@RequestMapping("api/spaces")
+public class SpaceController {
 
     @Autowired
-    private UserService userService;
+    private SpaceService spaceService;
 
     @RequestMapping
-    public ResponseEntity<List<UserDto>> getUsers(
+    public ResponseEntity<List<SpaceDto>> getSpaces(
             @RequestParam(defaultValue = "0") final Integer pageNo,
             @RequestParam(defaultValue = "10") final Integer pageSize,
             @RequestParam(defaultValue = "id") final String sortBy)
     {
-        final List<UserDto> userDtos = userService.getAllUsers(pageNo, pageSize, sortBy);
-        return new ResponseEntity<List<UserDto>>(userDtos, new HttpHeaders(), HttpStatus.OK);
+        final List<SpaceDto> userDtos = spaceService.getAllSpaces(pageNo, pageSize, sortBy);
+        return new ResponseEntity<List<SpaceDto>>(userDtos, new HttpHeaders(), HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/connected-user")
-    public ResponseEntity<UserDto> getConnectedUser(){
-        final UserDto userDto = userService.getConnectedUserDto();
-        return new ResponseEntity<UserDto>(userDto, new HttpHeaders(), HttpStatus.OK);
-    }
-
 }

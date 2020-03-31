@@ -16,6 +16,7 @@ import software.craftsmanship.scuser.exceptions.CustomTransactionalException;
 import software.craftsmanship.scuser.repositories.SpaceRepository;
 import software.craftsmanship.scuser.repositories.UserRepository;
 import software.craftsmanship.scuser.security.KeycloakSecurityContext;
+import software.craftsmanship.scuser.services.impl.UserServiceImpl;
 
 import static org.junit.Assert.*;
 

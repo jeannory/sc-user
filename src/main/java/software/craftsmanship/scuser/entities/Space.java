@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "sc_space")
+@Table(name = "sc_space",uniqueConstraints={
+        @UniqueConstraint(columnNames = "name")})
 public class Space extends SuperEntity{
 
     @Id

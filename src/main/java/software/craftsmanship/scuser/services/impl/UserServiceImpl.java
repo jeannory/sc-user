@@ -1,8 +1,12 @@
-package software.craftsmanship.scuser.services;
+package software.craftsmanship.scuser.services.impl;
 
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +19,10 @@ import software.craftsmanship.scuser.exceptions.CustomTransactionalException;
 import software.craftsmanship.scuser.repositories.SpaceRepository;
 import software.craftsmanship.scuser.repositories.UserRepository;
 import software.craftsmanship.scuser.security.KeycloakSecurityContext;
+import software.craftsmanship.scuser.services.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,6 +49,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public List<UserDto> getAllUsers(final Integer pageNo, final Integer pageSize, final String sortBy) {
+        final Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        final Page<User> pagedResult = userRepository.findAll(paging);
+        if(pagedResult.hasContent()) {
+            return converter.toDtos(pagedResult.getContent());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
     //catch CustomTransactionalException in this method
     private User getConnectedUser() {
         final AccessToken accessToken = keycloakSecurityContext.getAccessToken();
@@ -57,7 +76,6 @@ public class UserServiceImpl implements UserService {
             } catch (CustomTransactionalException ex) {
                 return null;
             }
-            user.toString();
         }
         return user;
     }
